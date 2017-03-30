@@ -1,0 +1,136 @@
+<!doctype html>
+<html dir="ltr" lang="zh-CN">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <link rel="stylesheet" type="text/css" href="./components.css">
+    <link rel="stylesheet" type="text/css" href="./index.css">
+    <style type="text/css">
+      textarea {width:382px;height:100px;}
+    </style>
+    <title>富文本编辑器</title>
+  </head>
+  <body>
+    <div id="dashboard">
+      <div id="btns" class="btns">
+        <span class="button" title="bold">加粗</span>
+        <span class="button" title="italic">斜体</span>
+        <span class="button" title="underline">下划</span>
+        <span class="button" title="justifycenter">居中</span>
+        <span class="button" title="justifyleft">居左</span>
+        <span class="button" title="justifyright">居右</span>
+        <span class="button" title="outdent">悬挂</span>
+        <span class="button" title="indent">缩进</span>
+        <span class="button" title="insertunorderedlist">无序</span>
+        <span class="button" title="insertorderedlist">有序</span>
+      </div>
+
+      <select title="fontname">
+        <option value="SimSun">宋体</option>
+        <option value="Arial">Arial</option>
+        <option value="LiSu">隶书</option>
+        <option value="KaiTi_GB2312">楷体</option>
+        <option value="YouYuan">幼圆</option>
+        <option value="SimHei">黑体</option>
+        <option value="Microsoft YaHei">雅黑</option>
+        <option value="Comic Sans MS">Comic Sans MS</option>
+      </select>
+      <select title="fontsize">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+      font color
+      <select title="foreColor">
+        <option style="color:#000000" value="#000000">■■</option>
+        <option style="color:#FF8080" value="#FF8080">■■</option>
+        <option style="color:#FFFF00" value="#FFFF00">■■</option>
+        <option style="color:#80FF00" value="#80FF00">■■</option>
+        <option style="color:#00FFFF" value="#00FFFF">■■</option>
+        <option style="color:#0000FF" value="#0000FF">■■</option>
+        <option style="color:#FF00FF" value="#FF00FF">■■</option>
+      </select>
+      font hilite color
+      <select title="hiliteColor">
+        <option style="color:#000000" value="#000000">■■</option>
+        <option style="color:#FF8080" value="#FF8080">■■</option>
+        <option style="color:#FFFF00" value="#FFFF00">■■</option>
+        <option style="color:#80FF00" value="#80FF00">■■</option>
+        <option style="color:#00FFFF" value="#00FFFF">■■</option>
+        <option style="color:#0000FF" value="#0000FF">■■</option>
+        <option style="color:#FF00FF" value="#FF00FF">■■</option>
+      </select>
+    </div>
+
+    <br style="clear:both"/>
+    <div id="workaround" contenteditable=true></div>
+  </body>
+<script type="text/javascript" src="./Q.js"></script>
+<script type="text/javascript">
+  //document.designMode = "on";
+
+  var init = function(){
+    var backspaceCode = 8;
+    var workaround = document.getElementById("workaround");
+    workaround.focus();
+
+    var dashboard = document.getElementById("dashboard");
+    var btnBox = document.getElementById('btns');
+    var fontNameSelect = document.querySelector('select[title=fontname]');
+    var fontSizeSelect = document.querySelector('select[title=fontsize]');
+    var foreColorSelect = document.querySelector('select[title=foreColor]');
+    var hiliteColorSelect = document.querySelector('select[title=hiliteColor]');
+
+    var performUI = function(command, arg){
+      var showDefaultUI = false; // Not works in chrome, I guess
+      var result = document.execCommand(command, showDefaultUI, arg);  
+      if(!result){
+        alert('Basic function - execCommand is not supported on your browser');
+      }
+    }
+
+    q.bind(dashboard, 'selectstart', function(e){
+      e.preventDefault();
+      e.returnValue = false
+      return false
+    })
+
+    q.bind(btnBox, 'click', function(e){
+      var btn = e.target;
+      var command = btn.getAttribute('title');
+      var showDefaultUI = false; // Not works in chrome, I guess
+      var arg = '';
+      performUI(command, arg);
+    })
+
+    q.bind(fontNameSelect, 'change', function(e){
+      var command = 'fontName';
+      var name = e.target.value;
+      performUI(command, name);
+    })
+
+    q.bind(fontSizeSelect, 'change', function(e){
+      var command = 'fontSize';
+      var size = e.target.value;
+      performUI(command, size);
+    })
+
+    q.bind(foreColorSelect, 'change', function(e){
+      var command = 'foreColor';
+      var color = e.target.value;
+      performUI(command, color);
+    })
+
+    q.bind(hiliteColorSelect, 'change', function(e){
+      var command = 'hiliteColor';
+      var color = e.target.value;
+      performUI(command, color);
+    })
+    
+  }
+
+  document.addEventListener('DOMContentLoaded', init);
+</script>
+</html>
