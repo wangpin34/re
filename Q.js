@@ -13,7 +13,8 @@
     var addListener = function(element, eventType, funcs){
       var EVENT_SCROLL = 'scroll';
         
-      if(element == document.body && eventType === SCROLL){
+      // https://github.com/wangpin34/vue-scroll/issues/1
+      if((element === document.body || element === document || element === w) && eventType === SCROLL){
         document.onscroll = function(e){
           funcs.forEach(function(func){
             func && func(e);
@@ -27,12 +28,13 @@
             (typeof func !== 'undefined') && func(e);
           })
         }
-      }
+      
+        if(element.addEventListener){
+          element.addEventListener(eventType, listener);
+        }else{
+          element.attachEvent('on' + eventType, listener);
+        }
 
-      if(element.addEventListener){
-        element.addEventListener(eventType, listener);
-      }else{
-        element.attachEvent('on' + eventType, listener);
       }
     }
       
