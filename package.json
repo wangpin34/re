@@ -1,0 +1,31 @@
+{
+  "name": "re",
+  "version": "0.0.1",
+  "description": "rich text editor",
+  "main": "index.js",
+  "scripts": {
+    "build": "gulp build",
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/wangpin34/re.git"
+  },
+  "keywords": [
+    "rich",
+    "text",
+    "editor"
+  ],
+  "author": "wangpin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wangpin34/re/issues"
+  },
+  "homepage": "https://github.com/wangpin34/re#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-copy": "^1.0.0",
+    "gulp-htmlmin": "^3.0.0",
+    "gulp-uglify": "^2.0.1"
+  }
+}
